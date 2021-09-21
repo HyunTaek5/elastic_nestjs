@@ -1,6 +1,5 @@
 # Search Jobs
 ## Find job from Indeed & Saramin
-<hr/>
 
 ## Tech Stack
 |*Part*|*Language*|*Tech Name*|*Description*|
