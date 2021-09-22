@@ -1,10 +1,11 @@
 version: '3'
 
 services:
+
   nestjs:
     build:
       context: ""
-      dockerfile: Dockerfile
+      dockerfile: api/nestjs/Dockerfile
       args:
         - NODE_ENV=development
     environment:
@@ -12,7 +13,7 @@ services:
       - DB_HOST=postgres
       - DB_PORT=5432
       - DB_USER=postgres
-      - DB_PW=
+      - DB_PW=asdf
     ports:
       - 3000:3000
     depends_on:
@@ -29,4 +30,25 @@ services:
     restart: always
     environment:
       - DB_USER=postgres
-      - DB_PASS=
+      - DB_PASSWORD=asdf
+      - DB_DATABASE=elastics
+
+  flask:
+    build:
+      context: ""
+      dockerfile: crawler/Dockerfile
+    environment:
+      - PORT=80
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PW=asdf
+    ports:
+      - 80:80
+    depends_on:
+      - postgres
+    links:
+      - postgres:postgres
+    volumes:
+      - .:/usr/src/app
+    command: python3 -m flask run
